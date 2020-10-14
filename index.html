@@ -4,5 +4,21 @@
   </head>
   <body>
 Coming...soon would probably be an exaggeration...but at one point...
+    <p>
+    In the meantime vfio notes:<br>
+      <ul>
+        <li>because guest gpu is boot_gpu I had to throw everything at it</li>
+        <li>video=vesafb:off,efifb:off in kernel options</li>
+        <li>copy rom from /sys/devices/pci..... and add it to the vm xml</li>
+        <li>of course because nvidia, error 43, so entries to the host in the xml also</li>
+        <li> and this after boot, so it let's the vm have at it
+          
+          virsh nodedev-detach pci_0000_2f_00_0
+virsh nodedev-detach pci_0000_2f_00_1
+virsh nodedev-detach pci_0000_2f_00_2
+virsh nodedev-detach pci_0000_2f_00_3
+echo efi-framebuffer.0 > /sys/bus/platform/drivers/efi-framebuffer/unbind</li>
+        <li>possible that not all of these are needed, but when i tried to revert just one, it would stop working, so i'm leaving it as is</li>
+    </ul>
   </body>
 </html>
